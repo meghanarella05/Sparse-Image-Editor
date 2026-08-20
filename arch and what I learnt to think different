@@ -1,0 +1,47 @@
+What I learnt to think differently - (full thought process iteration)
+
+Why not direct 2D array? It's picture! Why triples? 2D array already gives you a structure -> row and column -> 
+Conceptually it stays pure 2-D.
+We only changed the representation to 1-D so we don’t waste space (and later time) on all the zeros.
+That’s the whole game.
+
+**Why a full 2-D array is expensive**
+
+1. **Memory**  
+   An `N × M` image needs `N * M` cells, even if 99% of them are zero.  
+   A 4000×4000 image = 16 million integers.  
+   The sparse version with only 300 drawn pixels needs ~300 triples.  
+   That’s the difference between “fits in cache” and “eats hundreds of megabytes”.
+
+So the expense isn’t that 2-D thinking is hard.  
+The expense is that **storing and touching the empty space** costs both memory and time.
+
+That’s why we keep the 2-D concept but refuse to materialise the empty parts.
+
+What if a picture is a proper picture? fully covered? Then?
+THEN WE USE 2D ARRAYYYSS!!!!
+
+sparse representation becomes more expesive
+
+But how to decide optimzation?
+Density of non-zeros,Best representation,Why
+Very low (< 5–10 %),Triples / sparse,Huge win in memory + often in speed
+Low to medium,"Still sparse, or hybrid",Usually still better
+High (> 30–40 %),Normal 2-D array / dense,Sparse starts losing because of the extra index storage and indirect access
+Almost full,Dense,Sparse is strictly worse
+
+Ok but why do we need triples in 2D array? would we need doubles in 1D array? that isnt making sense to me
+Naa so when you converting an array into a list you have to store the sturcture asw thus the values you store also include the dimensions and the value itself
+
+so struct is a way of storing stuff like this ay
+OK but what about 2D arrays, we can perhaps also access 2D arrays using struct when we need it, when we need to perhaps work with many many fully filled pictures
+
+This was the main part everything else is syntax.
+
+Main points-
+- Keep the **2-D mental model**
+- Store only the non-zeros as a **1-D list of triples**
+- The triple exists because position is no longer implied by array structure
+- Choose sparse vs dense based on how empty the data actually is
+
+Arch is just store into triples and use tools available T_T
